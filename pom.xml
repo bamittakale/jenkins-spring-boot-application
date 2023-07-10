@@ -42,6 +42,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>spring-boot-with-jenkins-test</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
