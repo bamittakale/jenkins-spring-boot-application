@@ -23,15 +23,6 @@ pipeline {
       }
     }
 
-    stage('Copy Files') {
-      steps {
-        sh 'cp -r src src'
-        sh 'cp -r Dockerfile .'
-        sh 'cp -r Jenkinsfile .'
-        sh 'cp -r  pom.xml .'
-      }
-    }
-
     stage('Test') {
       steps {
         sh 'mvn test'
