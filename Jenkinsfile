@@ -9,10 +9,6 @@ pipeline {
     APP_WAR_FILENAME="spring-boot-jenkins.war"
   }
 
-  options {
-    workspace('/backend-app')
-  }
-
   stages {
     stage('Checkout') {
       steps {
