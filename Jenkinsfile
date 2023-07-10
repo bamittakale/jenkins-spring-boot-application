@@ -1,21 +1,13 @@
 pipeline {
-//   agent any
+  
   agent any
 
-//   agent {
-//     docker {
-//         image "maven:3.8.4-openjdk-8 as BACKEND_BUILD"
-//     }
-//   }
-
-   environment {
-        APP_NAME = "spring-boot-app-with-jenkins"
-        IMAGE_NAME_WITH_TAG = "spring-boot-app-with-jenkins:${BUILD_ID}"
-        BUILD_NUMBER = "${BUILD_ID}"
-        //TOMCAT_IMAGE_NAME = "tomcat:8.5.69-jdk8-openjdk"
-       // TOMCAT_CONTAINER_NAME = "apache_tomcat"
-        APP_WAR_FILENAME="spring-boot-jenkins.war"
-   }
+  environment {
+    APP_NAME = "spring-boot-app-with-jenkins"
+    IMAGE_NAME_WITH_TAG = "spring-boot-app-with-jenkins:${BUILD_ID}"
+    BUILD_NUMBER = "${BUILD_ID}"
+    APP_WAR_FILENAME="spring-boot-jenkins.war"
+  }
 
   options {
     workspace('/backend-app')
@@ -23,25 +15,24 @@ pipeline {
 
   stages {
     stage('Checkout') {
-        steps {
-          checkout([
-            $class: 'GitSCM',
-             branches: [[name: '*/main']],
-             userRemoteConfigs: [[
-               credentialsId: '2f6b6902-ed9e-470b-b2df-bf0668412c02', // Replace with the actual credential ID
-               url: 'https://github.com/bamittakale/jenkins-spring-boot-application' // Replace with your Git repository URL
-             ]]
-          ])
-        }
+      steps {
+        checkout([
+          $class: 'GitSCM',
+          branches: [[name: '*/main']],
+          userRemoteConfigs: [[
+            credentialsId: '2f6b6902-ed9e-470b-b2df-bf0668412c02', // Replace with the actual credential ID
+            url: 'https://github.com/bamittakale/jenkins-spring-boot-application' // Replace with your Git repository URL
+          ]]
+        ])
+      }
     }
 
     stage('Copy Files') {
       steps {
-          sh 'cp -r src src'
-          sh 'cp -r Dockerfile .'
-          sh 'cp -r Jenkinsfile .'
-          sh 'cp -r  pom.xml .'
-        }
+        sh 'cp -r src src'
+        sh 'cp -r Dockerfile .'
+        sh 'cp -r Jenkinsfile .'
+        sh 'cp -r  pom.xml .'
       }
     }
 
@@ -63,77 +54,23 @@ pipeline {
         sh "docker build -t ${env.IMAGE_NAME_WITH_TAG} ."
       }
     }
-
-//     stage('Add Keystore & Build Docker Image') {
-//       steps {
-//         script {
-//           // Copy the keystore file to the Jenkins workspace
-//           sh 'cp path/to/keystore.jks ${env.WORKSPACE}'
-//
-//           // Replace the keystore in the Docker image using sed command
-//           sh 'docker run --rm -v ${env.WORKSPACE}:/workspace your-application-image sed -i "s|<Connector|<Connector keystoreFile=\"/usr/local/tomcat/conf/keystore.jks\" keystorePass=\"your_keystore_password\" |" /usr/local/tomcat/conf/server.xml'
-//
-//           // Build the Docker image with the updated keystore
-//           sh 'docker build -t your-application-image:latest .'
-//         }
-//       }
-//     }
-
-    stage('Get Last Successful Build ID') {
+	
+	  stage('Stop & Remove Previous Docker Container') {
       steps {
         script {
-          def lastSuccessfulBuildId = currentBuild.previousSuccessfulBuild?.id
-          env.LAST_SUCCESSFUL_BUILD_ID_FOR_PROJECT_1 = lastSuccessfulBuildId
+          sh "docker container stop ${env.APP_NAME}"
+          sh "docker container rm ${env.APP_NAME}"
         }
       }
-    }
-	
-	stage('Stop & Remove Previous Docker Container') {
-	  steps {
-	    script {
-	      def containerName = "${env.APP_NAME}"
-	      //def containerTag = "${env.LAST_SUCCESSFUL_BUILD_ID_FOR_PROJECT_1}"
-
-	      sh "docker container stop ${env.APP_NAME}"
-	      sh "docker container rm ${env.APP_NAME}"
-
-	      // Stop and remove the container by name and tag
-	      //sh "docker stop \$(docker ps -aqf \"name=${containerName}\" -f \"ancestor=${containerTag}\") || true"
-	      //sh "docker rm \$(docker ps -aqf \"name=${containerName}\" -f \"ancestor=${containerTag}\") || true"
-	    }
 	  }
-	}
 
-//     stage('Check and Start Tomcat') {
-//        steps {
-//           script {
-//             def tomcatStatus = sh(returnStatus: true, script: "docker inspect -f {{.State.Running}} ${env.TOMCAT_IMAGE_NAME} 2>/dev/null").trim()
-//
-//             if (tomcatStatus != 'true') {
-//                 echo 'Tomcat is not running. Starting Tomcat...'
-//                 sh "docker run -d -p 8080:8080 --name ${env.TOMCAT_CONTAINER_NAME} ${env.TOMCAT_IMAGE_NAME}"
-//                 echo 'Tomcat is running on port 8080.'
-//             } else {
-//                 echo 'Tomcat is already running.'
-//             }
-//           }
-//        }
-//     }
-	
     stage('Deploy to Tomcat') {
       steps {
         script {
-
           docker.image("${env.IMAGE_NAME_WITH_TAG}").run("-p 8484:8484 -dit --name ${env.APP_NAME}")
-//           docker.image('spring-boot-app-with-jenkins:${BUILD_ID}').withRun('-p 8443:8443') { container ->
-//             // Get the IP address of the Docker container
-//             def ipAddress = sh(script: 'docker inspect -f \'{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}\' ${container.id}', returnStdout: true).trim()
-//
-//             // Deploy the Docker container to the Tomcat URL
-//             sh "curl -T ${env.APP_WAR_FILENAME} http://${ipAddress}:8080/manager/text/deploy?path=/your-application&update=true --user admin:admin123"
-//           }
         }
       }
     }
   }
+  
 }
