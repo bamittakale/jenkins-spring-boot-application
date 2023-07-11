@@ -2,6 +2,11 @@ pipeline {
   
   agent any
 
+  tools {
+    maven 'Maven 3.9.3'
+    jdk 'JDK8'
+  }
+
   environment {
     APP_NAME = "spring-boot-app-with-jenkins"
     IMAGE_NAME_WITH_TAG = "spring-boot-app-with-jenkins:${BUILD_ID}"
@@ -10,6 +15,16 @@ pipeline {
   }
 
   stages {
+
+    stage ('Initialize') {
+      steps {
+        sh '''
+            echo "PATH = ${PATH}"
+            echo "M2_HOME = ${M2_HOME}"
+        ''' 
+      }
+    }
+    
     stage('Checkout') {
       steps {
         checkout([
