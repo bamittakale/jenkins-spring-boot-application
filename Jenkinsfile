@@ -58,11 +58,18 @@ pipeline {
       }
     }
 	
-	  stage('Stop & Remove Previous Docker Container') {
+	  stage('Stop & Remove Previous Docker Container if it is running') {
       steps {
         script {
-          sh "docker container stop ${env.APP_NAME}"
-          sh "docker container rm ${env.APP_NAME}"
+          def port = 8484 // Specify the port you want to check
+          def containerRunning = sh(script: "docker ps -q --filter \"expose=${port}\"", returnStatus: true)
+          if (containerRunning == 0) {
+            echo "No container is running on port ${port}"
+          } else {
+            echo "A container is running on port ${port}"
+            sh "docker container stop ${env.APP_NAME}"
+            sh "docker container rm ${env.APP_NAME}"
+          }
         }
       }
 	  }
