@@ -54,7 +54,7 @@ pipeline {
           def containerRunning = bat(script: "docker ps -f \"name=${env.APP_NAME}\"", returnStatus: true)
           def containerStopped = bat(script: "docker ps -a -f \"name=${env.APP_NAME}\"", returnStatus: true)
           if (containerRunning !== 0) {
-            echo "A container is running having name: ${env.APP_NAME}"
+            echo "A container having name: ${env.APP_NAME} is running"
             bat "docker container stop ${env.APP_NAME}"
             bat "docker container rm ${env.APP_NAME}"
             echo "A container having name: ${env.APP_NAME} is stopped & removed successfully"
