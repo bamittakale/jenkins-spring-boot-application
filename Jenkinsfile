@@ -51,19 +51,20 @@ pipeline {
 	stage('Stop & Remove Previous Docker Container if it is running') {
       steps {
         script {
-
-         bat "docker ps -f name=${env.APP_NAME} -q | xargs --no-run-if-empty docker container stop"
-         bat "docker container ls -a -fname=${env.APP_NAME} -q | xargs -r docker container rm"
-
-//           def port = 8484 // Specify the port you want to check
-//           def containerRunning = bat(script: "docker ps -q --filter \"expose=${port}\"", returnStatus: true)
-//           if (containerRunning == 0) {
-//             echo "No container is running on port ${port}"
-//           } else {
-//             echo "A container is running on port ${port}"
-//             bat "docker container stop ${env.APP_NAME}"
-//             bat "docker container rm ${env.APP_NAME}"
-//           }
+          def containerRunning = bat(script: "docker ps -f \"name=${env.APP_NAME}\"", returnStatus: true)
+          def containerStopped = bat(script: "docker ps -a -f \"name=${env.APP_NAME}\"", returnStatus: true)
+          if (containerRunning !== 0) {
+            echo "A container is running having name: ${env.APP_NAME}"
+            bat "docker container stop ${env.APP_NAME}"
+            bat "docker container rm ${env.APP_NAME}"
+            echo "A container having name: ${env.APP_NAME} is stopped & removed successfully"
+          } else if (containerStopped !== 0) {
+            echo "A container having name: ${env.APP_NAME} is already stopped"
+            bat "docker container rm ${env.APP_NAME}"
+            echo "A container having name: ${env.APP_NAME} is removed successfully"
+          } else {
+            echo "A container is running having name: ${env.APP_NAME} is running as well as stopped."
+          }
         }
       }
 	}
