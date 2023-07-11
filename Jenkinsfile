@@ -22,7 +22,7 @@ pipeline {
           $class: 'GitSCM',
           branches: [[name: '*/main']],
           userRemoteConfigs: [[
-            credentialsId: '2f6b6902-ed9e-470b-b2df-bf0668412c02', // Replace with the actual credential ID
+            credentialsId: '0fb20000-1e41-4e3f-805c-60306919d22f', // Replace with the actual credential ID
             url: 'https://github.com/bamittakale/jenkins-spring-boot-application' // Replace with your Git repository URL
           ]]
         ])
