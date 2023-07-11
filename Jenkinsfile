@@ -1,11 +1,6 @@
 pipeline {
   
-  agent {
-    docker {
-      image 'docker:latest'
-      args '-v /var/run/docker.sock:/var/run/docker.sock'
-    }
-  }
+  agent any
 
   tools {
     maven 'Maven 3.9.3'
@@ -53,7 +48,7 @@ pipeline {
       }
     }
 	
-	  stage('Stop & Remove Previous Docker Container if it is running') {
+	stage('Stop & Remove Previous Docker Container if it is running') {
       steps {
         script {
           def port = 8484 // Specify the port you want to check
@@ -67,7 +62,7 @@ pipeline {
           }
         }
       }
-	  }
+	}
 
     stage('Deploy to Tomcat') {
       steps {
