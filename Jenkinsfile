@@ -52,7 +52,7 @@ pipeline {
       steps {
         script {
           def port = 8484 // Specify the port you want to check
-          def containerRunning = sh(script: "docker ps -q --filter \"expose=${port}\"", returnStatus: true)
+          def containerRunning = bat(script: "docker ps -q --filter \"expose=${port}\"", returnStatus: true)
           if (containerRunning == 0) {
             echo "No container is running on port ${port}"
           } else {
@@ -66,9 +66,7 @@ pipeline {
 
     stage('Deploy to Tomcat') {
       steps {
-        script {
-          docker.image("${env.IMAGE_NAME_WITH_TAG}").run("-p 8484:8484 -dit --name ${env.APP_NAME}")
-        }
+        bat "docker container run -p 8484:8484 -dit --name ${env.APP_NAME}"
       }
     }
   }
