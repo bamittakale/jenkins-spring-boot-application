@@ -1,0 +1,53 @@
+2023-07-12 15:19:16.524  INFO 15516 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : Starting SpringBootJenkinsApplication using Java 1.8.0_202 on AMIT with PID 15516 (C:\Users\bamit\Downloads\jenkins-spring-boot-application\target\classes started by bamit in C:\Users\bamit\Downloads\jenkins-spring-boot-application)
+2023-07-12 15:19:16.525  INFO 15516 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : No active profile set, falling back to 1 default profile: "default"
+2023-07-12 15:19:16.572  INFO 15516 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-07-12 15:19:17.090  INFO 15516 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-07-12 15:19:17.104  INFO 15516 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : Started SpringBootJenkinsApplication in 1.045 seconds (JVM running for 1.569)
+2023-07-12 15:23:03.496  INFO 19372 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : Starting SpringBootJenkinsApplication using Java 1.8.0_202 on AMIT with PID 19372 (C:\Users\bamit\Downloads\jenkins-spring-boot-application\target\classes started by bamit in C:\Users\bamit\Downloads\jenkins-spring-boot-application)
+2023-07-12 15:23:03.497  INFO 19372 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : No active profile set, falling back to 1 default profile: "default"
+2023-07-12 15:23:03.540  INFO 19372 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-07-12 15:23:04.053  INFO 19372 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-07-12 15:23:04.069  INFO 19372 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : Started SpringBootJenkinsApplication in 0.989 seconds (JVM running for 1.428)
+2023-07-12 15:26:18.032  INFO 27904 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : Starting SpringBootJenkinsApplication using Java 17.0.6 on AMIT with PID 27904 (C:\Users\bamit\Downloads\jenkins-spring-boot-application\target\classes started by bamit in C:\Users\bamit\Downloads\jenkins-spring-boot-application)
+2023-07-12 15:26:18.033  INFO 27904 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : No active profile set, falling back to 1 default profile: "default"
+2023-07-12 15:26:18.065  INFO 27904 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-07-12 15:26:18.065  INFO 27904 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-07-12 15:26:18.571  INFO 27904 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8484 (http)
+2023-07-12 15:26:18.578  INFO 27904 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-12 15:26:18.578  INFO 27904 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.76]
+2023-07-12 15:26:18.614  INFO 27904 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-12 15:26:18.615  INFO 27904 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 550 ms
+2023-07-12 15:26:18.799  INFO 27904 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-07-12 15:26:18.811  WARN 27904 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8484 is already in use
+2023-07-12 15:26:18.813  INFO 27904 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-07-12 15:26:18.820  INFO 27904 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2023-07-12 15:26:18.833 ERROR 27904 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8484 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8484 or configure this application to listen on another port.
+
+2023-07-12 15:27:35.860  INFO 15800 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : Starting SpringBootJenkinsApplication using Java 17.0.6 on AMIT with PID 15800 (C:\Users\bamit\Downloads\jenkins-spring-boot-application\target\classes started by bamit in C:\Users\bamit\Downloads\jenkins-spring-boot-application)
+2023-07-12 15:27:35.861  INFO 15800 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : No active profile set, falling back to 1 default profile: "default"
+2023-07-12 15:27:35.892  INFO 15800 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-07-12 15:27:35.892  INFO 15800 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-07-12 15:27:36.402  INFO 15800 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8585 (http)
+2023-07-12 15:27:36.426  INFO 15800 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-12 15:27:36.426  INFO 15800 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.76]
+2023-07-12 15:27:36.474  INFO 15800 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-12 15:27:36.474  INFO 15800 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 582 ms
+2023-07-12 15:27:36.665  INFO 15800 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-07-12 15:27:36.703  INFO 15800 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8585 (http) with context path ''
+2023-07-12 15:27:36.709  INFO 15800 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : Started SpringBootJenkinsApplication in 1.111 seconds (JVM running for 1.615)
+2023-07-12 15:30:23.116  INFO 15800 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2023-07-12 15:30:23.128  INFO 15800 --- [Thread-5] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
