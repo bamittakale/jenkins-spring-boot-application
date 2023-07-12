@@ -20,27 +20,30 @@ pipeline {
 
     stage('Check Image Existence') {
       steps {
-        script {
 
-          def imageName = "${env.TOMCAT_IMAGE}"
-          def imageExists = false
+        bat "docker pull ${env.TOMCAT_IMAGE}"
+        
+        // script {
+
+        //   def imageName = "${env.TOMCAT_IMAGE}"
+        //   def imageExists = false
           
-          // Execute Docker command to check image existence
-          def cmd = "docker image inspect ${imageName} > /dev/null 2>&1 && echo 'true' || echo 'false'"
-          def result = bat(returnStdout: true, script: cmd)
+        //   // Execute Docker command to check image existence
+        //   def cmd = "docker image inspect ${imageName} > /dev/null 2>&1 && echo 'true' || echo 'false'"
+        //   def result = bat(returnStdout: true, script: cmd)
           
-          // Parse the command output to determine if image exists
-          if (result.trim() == 'true') {
-            imageExists = true
-          }
+        //   // Parse the command output to determine if image exists
+        //   if (result.trim() == 'true') {
+        //     imageExists = true
+        //   }
           
-          if (imageExists) {
-            echo "The image ${imageName} already exists locally."
-          } else { 
-            echo "The image ${imageName} does not exist locally."
-            bat "docker pull ${imageName}"
-          }
-        }
+        //   if (imageExists) {
+        //     echo "The image ${imageName} already exists locally."
+        //   } else { 
+        //     echo "The image ${imageName} does not exist locally."
+        //     bat "docker pull ${imageName}"
+        //   }
+        // }
       }
     }
 
