@@ -17,17 +17,17 @@ pipeline {
 
   stages {
 
-//     stage('Check Image Existence') {
-//       steps {
-//         script {
-//           def imageExist = bat(script: "docker images ${env.TOMCAT_IMAGE}", returnStatus: true)
-//           echo "imageExist: ${imageExist}"
-//           if (!imageExist) {
-//               bat "docker pull ${env.TOMCAT_IMAGE}"
-//           }
-//         }
-//       }
-//     }
+    stage('Check Image Existence') {
+      steps {
+        script {
+          def imageExist = bat(script: "docker images ${env.TOMCAT_IMAGE}", returnStatus: true)
+          echo "imageExist: ${imageExist}"
+          if (!imageExist) {
+              bat "docker pull ${env.TOMCAT_IMAGE}"
+          }
+        }
+      }
+    }
 
     stage('Checkout') {
       steps {
