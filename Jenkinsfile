@@ -26,14 +26,7 @@ pipeline {
           def oldImageID = bat(returnStdout:true , script: cmd).trim()
           def res = oldImageID.readLines().drop(1).join(" ")
           echo "oldImageID : ${res}"
-          // Execute Docker command to check image existence
-          cmd = "docker image inspect ${imageName} > NUL 2>&1 && echo 'true' || echo 'false'"
-          def result = bat(returnStdout: true, script: cmd).trim()
-          def res1 = result.readLines().drop(1).join(" ")
-          echo "is image exists: ${res1}"
-          echo "result: ${result}"
-          // Parse the command output to determine if image exists
-          if (res1 == 'true') {
+          if (res.trim() !== "") {
             echo "The image ${imageName} already exists locally."
           } else {
             echo "The image ${imageName} does not exist."
