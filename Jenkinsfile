@@ -24,9 +24,10 @@ pipeline {
           def imageName = "${env.TOMCAT_IMAGE}"
           
           // Execute Docker command to check image existence
-          def cmd = "docker image inspect ${imageName} > NUL 2>&1 && echo 'true' || echo 'false'"
+          def cmd = "docker image inspect ${imageName} > NUL 2>&1 && echo true || echo false"
           def result = bat(returnStdout: true, script: cmd)
           echo "is image exists: ${result.trim()}"
+          echo "result: ${result}"
           // Parse the command output to determine if image exists
           if (result.trim() == 'true') {
             echo "The image ${imageName} already exists locally."
