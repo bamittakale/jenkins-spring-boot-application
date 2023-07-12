@@ -22,15 +22,18 @@ pipeline {
       steps {
         script {
           def imageName = "${env.TOMCAT_IMAGE}"
-          def oldImageID = bat( script: "docker images -qf reference=${imageName}",returnStdout: true)
-          echo "oldImageID : ${oldImageID}"
+          def cmd = "docker images -qf reference=${imageName}"
+          def oldImageID = bat(returnStdout:true , script: cmd).trim()
+          def res = oldImageID.readLines().drop(1).join(" ")
+          echo "oldImageID : ${res}"
           // Execute Docker command to check image existence
-          def cmd = "docker image inspect ${imageName} > NUL 2>&1 && echo true || echo false"
-          def result = bat(returnStdout: true, script: cmd)
-          echo "is image exists: ${result.trim()}"
+          cmd = "docker image inspect ${imageName} > NUL 2>&1 && echo 'true' || echo 'false'"
+          def result = bat(returnStdout: true, script: cmd).trim()
+          def res1 = result.readLines().drop(1).join(" ")
+          echo "is image exists: ${res1}"
           echo "result: ${result}"
           // Parse the command output to determine if image exists
-          if (result.trim() == 'true') {
+          if (res1 == 'true') {
             echo "The image ${imageName} already exists locally."
           } else {
             echo "The image ${imageName} does not exist."
