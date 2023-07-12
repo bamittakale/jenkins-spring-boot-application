@@ -22,7 +22,8 @@ pipeline {
       steps {
         script {
           def imageName = "${env.TOMCAT_IMAGE}"
-          
+          def oldImageID = sh( script: 'docker images -qf reference=\${imageName}',returnStdout: true)
+          echo "oldImageID : ${oldImageID}"
           // Execute Docker command to check image existence
           def cmd = "docker image inspect ${imageName} > NUL 2>&1 && echo true || echo false"
           def result = bat(returnStdout: true, script: cmd)
