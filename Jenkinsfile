@@ -20,15 +20,13 @@ pipeline {
 
     stage('Check Image Existence') {
       steps {
-
         script {
-
           def imageName = "${env.TOMCAT_IMAGE}"
           
           // Execute Docker command to check image existence
           def cmd = "docker image inspect ${imageName} > NUL 2>&1 && echo 'true' || echo 'false'"
-          def result = bat(returnStdout: true, script: cmd)
-          
+          def result = powershell(returnStdout: true, script: cmd)
+          echo "result.trim() : ${result.trim()}"
           // Parse the command output to determine if image exists
           if (result.trim() == 'true') {
             echo "The image ${imageName} already exists locally."
@@ -80,7 +78,7 @@ pipeline {
 
           // Execute Docker command to check container status
           def cmd = "docker inspect -f '{{.State.Status}}' ${containerName}"
-          def result = bat(returnStdout: true, script: psCmd)
+          def result = powershell(returnStdout: true, script: cmd)
           echo "container status: ${result.trim()}"
           if (result.trim() == 'running') {
             echo "A container having name: ${containerName} is running"
