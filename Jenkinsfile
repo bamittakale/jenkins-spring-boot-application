@@ -1,5 +1,5 @@
 pipeline {
-  
+
   agent any
 
   tools {
@@ -9,7 +9,7 @@ pipeline {
 
   environment {
     APP_NAME = "spring-boot-app-with-jenkins"
-    IMAGE_NAME_WITHOUT_TAG = "spring-boot-app-with-jenkins" 
+    IMAGE_NAME_WITHOUT_TAG = "spring-boot-app-with-jenkins"
     IMAGE_NAME_WITH_TAG = "spring-boot-app-with-jenkins:${BUILD_ID}"
     BUILD_NUMBER = "${BUILD_ID}"
     APP_WAR_FILENAME="spring-boot-with-jenkins-test.war"
@@ -67,21 +67,22 @@ pipeline {
         bat "docker build -t ${env.IMAGE_NAME_WITH_TAG} ."
       }
     }
-	
+
 	  stage('Stop & Remove Previous Docker Container if it is running') {
       steps {
         script {
           def containerName = "${env.APP_NAME}"
-          def cmd = "docker inspect -f '{{.State.Status}}' ${containerName}"
+          def cmd = "docker inspect -f {{.State.Status}} ${containerName}"
           def result = bat(returnStdout: true, script: cmd).trim()
-          def res = result.readLines().drop(1).join(" ")
+          def res = result.readLines().drop(1).join("")
           echo "container status: ${res}"
-          if (res == 'running') {
+
+          if (res == "running") {
             echo "A container having name: ${containerName} is running"
             bat "docker container stop ${containerName}"
             bat "docker container rm ${containerName}"
             echo "A container having name: ${containerName} is stopped & removed successfully"
-          } else if (res == 'exited') {
+          } else if (res == "exited") {
             echo "A container having name: ${containerName} is exited"
             bat "docker container rm ${containerName}"
             echo "A container having name: ${containerName} is removed successfully"
