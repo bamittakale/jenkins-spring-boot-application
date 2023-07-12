@@ -73,14 +73,15 @@ pipeline {
         script {
           def containerName = "${env.APP_NAME}"
           def cmd = "docker inspect -f '{{.State.Status}}' ${containerName}"
-          def result = bat(returnStdout: true, script: cmd)
-          echo "container status: ${result.trim()}"
-          if (result.trim() == 'running') {
+          def result = bat(returnStdout: true, script: cmd).trim()
+          def res = result.readLines().drop(1).join(" ")
+          echo "container status: ${res}"
+          if (res == 'running') {
             echo "A container having name: ${containerName} is running"
             bat "docker container stop ${containerName}"
             bat "docker container rm ${containerName}"
             echo "A container having name: ${containerName} is stopped & removed successfully"
-          } else if (result.trim() == 'exited') {
+          } else if (res == 'exited') {
             echo "A container having name: ${containerName} is exited"
             bat "docker container rm ${containerName}"
             echo "A container having name: ${containerName} is removed successfully"
