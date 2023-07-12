@@ -21,43 +21,24 @@ pipeline {
     stage('Check Image Existence') {
       steps {
 
-        bat "docker pull ${env.TOMCAT_IMAGE}"
-        
-        // script {
+        script {
 
-        //   def imageName = "${env.TOMCAT_IMAGE}"
-        //   def imageExists = false
+          def imageName = "${env.TOMCAT_IMAGE}"
           
-        //   // Execute Docker command to check image existence
-        //   def cmd = "docker image inspect ${imageName} > /dev/null 2>&1 && echo 'true' || echo 'false'"
-        //   def result = bat(returnStdout: true, script: cmd)
+          // Execute Docker command to check image existence
+          def cmd = "docker image inspect ${imageName} > NUL 2>&1 && echo 'true' || echo 'false'"
+          def result = bat(returnStdout: true, script: cmd)
           
-        //   // Parse the command output to determine if image exists
-        //   if (result.trim() == 'true') {
-        //     imageExists = true
-        //   }
-          
-        //   if (imageExists) {
-        //     echo "The image ${imageName} already exists locally."
-        //   } else { 
-        //     echo "The image ${imageName} does not exist locally."
-        //     bat "docker pull ${imageName}"
-        //   }
-        // }
+          // Parse the command output to determine if image exists
+          if (result.trim() == 'true') {
+            echo "The image ${imageName} already exists locally."
+          } else {
+            echo "The image ${imageName} does not exist."
+            bat "docker pull ${imageName}"
+          }
+        }
       }
     }
-
-    // stage('Check Image Existence') {
-    //   steps {
-    //     script {
-    //       def imageExist = bat(script: "docker images ${env.TOMCAT_IMAGE}", returnStatus: true)
-    //       echo "imageExist: ${imageExist}"
-    //       if (!imageExist) {
-    //           bat "docker pull ${env.TOMCAT_IMAGE}"
-    //       }
-    //     }
-    //   }
-    // }
 
     stage('Checkout') {
       steps {
@@ -96,50 +77,23 @@ pipeline {
         script {
 
           def containerName = "${env.APP_NAME}"
-          def containerStatus = 'not-found'
 
           // Execute Docker command to check container status
-          def cmd = "docker inspect -f '{{.State.Status}}' ${containerName} > /dev/null 2>&1"
-          def result = bat(returnStatus: true, script: cmd)
-
-          if (result == 0) {
-              // Container exists, retrieve its status
-              containerStatus = sh(returnStdout: true, script: "docker inspect -f '{{.State.Status}}' ${containerName}").trim()
+          def cmd = "docker inspect -f '{{.State.Status}}' ${containerName}"
+          def result = bat(returnStdout: true, script: psCmd)
+          echo "container status: ${result.trim()}"
+          if (result.trim() == 'running') {
+            echo "A container having name: ${containerName} is running"
+            bat "docker container stop ${containerName}"
+            bat "docker container rm ${containerName}"
+            echo "A container having name: ${containerName} is stopped & removed successfully"
+          } else if (result.trim() == 'exited') {
+            echo "A container having name: ${containerName} is exited"
+            bat "docker container rm ${containerName}"
+            echo "A container having name: ${containerName} is removed successfully"
           } else {
-              // Container does not exist
-              containerStatus = 'not-found'
+            echo "A container having name: ${containerName} is does not exist."
           }
-
-          if (containerStatus == 'running') {
-              echo "A container having name: ${containerName} is running"
-              bat "docker container stop ${containerName}"
-              bat "docker container rm ${containerName}"
-              echo "A container having name: ${containerName} is stopped & removed successfully"
-          } else if (containerStatus == 'exited') {
-              echo "A container having name: ${containerName} is exist but it is stopped"
-              bat "docker container rm ${containerName}"
-              echo "A container having name: ${containerName} is removed successfully"
-          } else {
-              echo "A container having name: ${containerName} is does not exist."
-          }
-                               
-          // def containerRunning = bat(script: "docker ps -f name=${env.APP_NAME}", returnStatus: true)
-          // def containerStopped = bat(script: "docker ps -a -f name=${env.APP_NAME}", returnStatus: true)
-          // echo "containerRunning: ${containerRunning}"
-          // echo "containerStopped: ${containerStopped}"
-          // if (containerRunning > 0) {
-          //   echo "A container having name: ${env.APP_NAME} is running"
-          //   bat "docker container stop ${env.APP_NAME}"
-          //   bat "docker container rm ${env.APP_NAME}"
-          //   echo "A container having name: ${env.APP_NAME} is stopped & removed successfully"
-          // } else if (containerStopped > 0) {
-          //   echo "A container having name: ${env.APP_NAME} is already stopped"
-          //   bat "docker container rm ${env.APP_NAME}"
-          //   echo "A container having name: ${env.APP_NAME} is removed successfully"
-          // } else {
-          //   echo "A container having name: ${env.APP_NAME} is running as well as stopped."
-          // }
-
         }
       }
     }
