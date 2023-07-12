@@ -26,7 +26,7 @@ pipeline {
           def oldImageID = bat(returnStdout:true , script: cmd).trim()
           def res = oldImageID.readLines().drop(1).join(" ")
           echo "oldImageID : ${res}"
-          if (res.trim() !== "") {
+          if (res.trim() != "") {
             echo "The image ${imageName} already exists locally."
           } else {
             echo "The image ${imageName} does not exist."
