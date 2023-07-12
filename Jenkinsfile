@@ -25,8 +25,8 @@ pipeline {
           
           // Execute Docker command to check image existence
           def cmd = "docker image inspect ${imageName} > NUL 2>&1 && echo 'true' || echo 'false'"
-          def result = powershell(returnStdout: true, script: cmd)
-          echo "result.trim() : ${result.trim()}"
+          def result = bat(returnStdout: true, script: cmd)
+          echo "is image exists: ${result.trim()}"
           // Parse the command output to determine if image exists
           if (result.trim() == 'true') {
             echo "The image ${imageName} already exists locally."
@@ -73,12 +73,9 @@ pipeline {
 	  stage('Stop & Remove Previous Docker Container if it is running') {
       steps {
         script {
-
           def containerName = "${env.APP_NAME}"
-
-          // Execute Docker command to check container status
           def cmd = "docker inspect -f '{{.State.Status}}' ${containerName}"
-          def result = powershell(returnStdout: true, script: cmd)
+          def result = bat(returnStdout: true, script: cmd)
           echo "container status: ${result.trim()}"
           if (result.trim() == 'running') {
             echo "A container having name: ${containerName} is running"
