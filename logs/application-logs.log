@@ -51,3 +51,30 @@ Identify and stop the process that's listening on port 8484 or configure this ap
 2023-07-12 15:27:36.709  INFO 15800 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : Started SpringBootJenkinsApplication in 1.111 seconds (JVM running for 1.615)
 2023-07-12 15:30:23.116  INFO 15800 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
 2023-07-12 15:30:23.128  INFO 15800 --- [Thread-5] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-07-12 15:30:23.165  INFO 15800 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : Starting SpringBootJenkinsApplication using Java 17.0.6 on AMIT with PID 15800 (C:\Users\bamit\Downloads\jenkins-spring-boot-application\target\classes started by bamit in C:\Users\bamit\Downloads\jenkins-spring-boot-application)
+2023-07-12 15:30:23.165  INFO 15800 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : No active profile set, falling back to 1 default profile: "default"
+2023-07-12 15:30:23.259  INFO 15800 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8484 (http)
+2023-07-12 15:30:23.259  INFO 15800 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-12 15:30:23.260  INFO 15800 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.76]
+2023-07-12 15:30:23.271  INFO 15800 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-07-12 15:30:23.271  INFO 15800 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 105 ms
+2023-07-12 15:30:23.309  INFO 15800 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-07-12 15:30:23.314  WARN 15800 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8484 is already in use
+2023-07-12 15:30:23.314  INFO 15800 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-07-12 15:30:23.318  INFO 15800 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2023-07-12 15:30:23.330 ERROR 15800 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8484 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8484 or configure this application to listen on another port.
+
