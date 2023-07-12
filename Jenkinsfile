@@ -25,7 +25,6 @@ pipeline {
           def cmd = "docker images -qf reference=${imageName}"
           def oldImageID = bat(returnStdout:true , script: cmd).trim()
           def res = oldImageID.readLines().drop(1).join(" ")
-          echo "oldImageID : ${res}"
           if (res.trim() != "") {
             echo "The image ${imageName} already exists locally."
           } else {
