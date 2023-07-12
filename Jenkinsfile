@@ -12,7 +12,7 @@ pipeline {
     IMAGE_NAME_WITH_TAG = "spring-boot-app-with-jenkins:${BUILD_ID}"
     BUILD_NUMBER = "${BUILD_ID}"
     APP_WAR_FILENAME="spring-boot-with-jenkins-test.war"
-    tomcateImage = "tomcat:9.0.46-jdk8-openjdk"
+    TOMCAT_IMAGE = "tomcat:9.0.46-jdk8-openjdk"
   }
 
   stages {
@@ -20,9 +20,10 @@ pipeline {
     stage('Check Image Existence') {
       steps {
         script {
-          def tomcat = "${tomcateImage}"
-          if (!docker.image(tomcat).exists()) {
-              bat "docker pull ${tomcat}"
+          def imageExist = bat(script: "docker images ${env.TOMCAT_IMAGE}", returnStatus: true)
+          echo "imageExist: ${imageExist}"
+          if (!imageExist) {
+              bat "docker pull ${env.TOMCAT_IMAGE}"
           }
         }
       }
