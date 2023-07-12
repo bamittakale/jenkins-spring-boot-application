@@ -94,7 +94,7 @@ pipeline {
 
     stage('Deploy to Tomcat') {
       steps {
-        bat "docker container run -p 8484:8080 -dit --name ${env.APP_NAME} ${env.IMAGE_NAME_WITH_TAG}"
+        bat "docker container run -p 8484:8484 -dit --name ${env.APP_NAME} ${env.IMAGE_NAME_WITH_TAG}"
       }
     }
 

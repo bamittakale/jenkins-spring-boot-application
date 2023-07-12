@@ -78,3 +78,30 @@ Action:
 
 Identify and stop the process that's listening on port 8484 or configure this application to listen on another port.
 
+2023-07-12 17:35:49.102  INFO 15800 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : Starting SpringBootJenkinsApplication using Java 17.0.6 on AMIT with PID 15800 (C:\Users\bamit\Downloads\jenkins-spring-boot-application\target\classes started by bamit in C:\Users\bamit\Downloads\jenkins-spring-boot-application)
+2023-07-12 17:35:49.106  INFO 15800 --- [restartedMain] c.s.s.SpringBootJenkinsApplication       : No active profile set, falling back to 1 default profile: "default"
+2023-07-12 17:35:49.606  INFO 15800 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8484 (http)
+2023-07-12 17:35:49.611  INFO 15800 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-07-12 17:35:49.611  INFO 15800 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.76]
+2023-07-12 17:35:49.642  INFO 15800 --- [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2023-07-12 17:35:49.642  INFO 15800 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 515 ms
+2023-07-12 17:35:49.765  INFO 15800 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-07-12 17:35:49.775  WARN 15800 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8484 is already in use
+2023-07-12 17:35:49.778  INFO 15800 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-07-12 17:35:49.787  INFO 15800 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2023-07-12 17:35:49.795 ERROR 15800 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8484 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8484 or configure this application to listen on another port.
+
